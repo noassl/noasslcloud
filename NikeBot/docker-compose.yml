@@ -1,0 +1,8 @@
+services:
+  NikeBot:
+    build: .
+    image: nikebot
+    restart: unless-stopped
+    container_name: "NikeBot"
+    labels:
+      - "com.centurylinklabs.watchtower.enable=false"
