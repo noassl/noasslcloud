@@ -12,8 +12,8 @@ services:
       options:
         max-size: 10m
     volumes:
-      - data:/var/www/FreshRSS/data
-      - extensions:/var/www/FreshRSS/extensions
+      - ./data:/var/www/FreshRSS/data
+      - ./extensions:/var/www/FreshRSS/extensions
     ports:
       - "8080:80"
     environment:

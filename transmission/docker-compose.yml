@@ -8,9 +8,9 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
     volumes:
-      - config:/config
-      - downloads:/downloads
-      - watch:/watch
+      - ./config:/config
+      - ./downloads:/downloads
+      - ./watch:/watch
     ports:
       - 9091:9091
       - 51413:51413
