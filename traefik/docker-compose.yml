@@ -1,0 +1,46 @@
+# https://www.smarthomebeginner.com/traefik-v3-docker-compose-guide-2024/
+
+services:
+  traefik:
+    image: traefik:v3.1
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8081:8080"
+    command:
+      - --global.sendAnonymousUsage=false
+      # HTTP to HTTPS redirection
+      - --entrypoints.web.address=:80
+      # - --entrypoints.web.http.redirections.entrypoint.to=websecure
+      # - --entrypoints.web.http.redirections.entrypoint.scheme=https
+      - --entrypoints.websecure.address=:443
+      - --entrypoints.websecure.http.tls=true
+      # Traefik dashboard
+      - --api.dashboard=true # Enable dashboard
+      - --api.insecure=false # Public access to API (insecure)
+      # Conf file for TLS certs
+      - --providers.file.filename=/etc/traefik/certs.config.yml
+      # Docker provider
+      - --providers.docker.exposedByDefault=false
+      - --providers.docker.network=traefik
+      # Logs
+      - --log.filePath=/logs/traefik.log
+      - --log.level=ERROR
+      - --accessLog.filePath=/logs/access.log
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.traefik.entrypoints=websecure
+      - traefik.http.routers.traefik.service=api@internal
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config:/etc/traefik
+      - ./certs:/etc/certs
+      - ./logs:/logs
+    networks:
+      - "traefik"
+    restart: unless-stopped
+    container_name: traefik
+
+networks:
+  traefik:
+    external: true
