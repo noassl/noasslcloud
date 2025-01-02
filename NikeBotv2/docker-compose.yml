@@ -1,0 +1,10 @@
+services:
+  NikeBotv2:
+    image: ghcr.io/littlegamer757/nikebotv2:master
+    volumes:
+      - ./config.json:/app/config.json
+      - ./version.properties:/app/version.properties
+    env_file:
+      - .env
+    restart: unless-stopped
+    container_name: NikeBotv2
