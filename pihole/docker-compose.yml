@@ -23,8 +23,6 @@ services:
     networks:
       pihole_macvlan:
         ipv4_address: 192.168.0.1
-      pihole_bridge:
-        ipv4_address: 10.10.0.2
 
 networks:
   pihole_macvlan:
@@ -36,10 +34,3 @@ networks:
         - subnet: 192.168.0.0/24
           gateway: 192.168.0.254
           ip_range: 192.168.0.1/32
-  pihole_bridge:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 10.10.0.0/24
-          gateway: 10.10.0.1
-          ip_range: 10.10.0.2/32
