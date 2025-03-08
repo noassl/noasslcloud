@@ -17,7 +17,7 @@ services:
       - --entrypoints.websecure.http.tls=true
       # Traefik dashboard
       - --api.dashboard=true # Enable dashboard
-      - --api.insecure=false # Public access to API (insecure)
+      - --api.insecure=true # Public access to API (insecure)
       # Conf file for TLS certs
       - --providers.file.filename=/etc/traefik/certs.config.yml
       # Docker provider
