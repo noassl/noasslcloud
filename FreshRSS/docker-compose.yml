@@ -21,10 +21,11 @@ services:
       CRON_MIN: '3,33'
       SERVER_DNS: freshrss.noassl.at
     labels:
-      - traefik.enable=true
-      - traefik.http.routers.freshrss.rule=Host(`freshrss.noassl.at`)
-      - traefik.http.routers.freshrss.entryPoints=websecure
-      - traefik.http.routers.freshrss.tls=true
+      traefik.enable: true
+      traefik.http.routers.freshrss.rule: "Host(`freshrss.noassl.at`)"
+      traefik.http.routers.freshrss.entryPoints: "websecure"
+      traefik.http.routers.freshrss.tls: true
+      com.centurylinklabs.watchtower.enable: true
 
 networks:
   default:

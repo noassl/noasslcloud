@@ -8,3 +8,5 @@ services:
       - .env
     restart: unless-stopped
     container_name: NikeBotv2
+    labels:
+      com.centurylinklabs.watchtower.enable: true

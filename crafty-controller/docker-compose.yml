@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   crafty:
     container_name: crafty
@@ -19,3 +17,5 @@ services:
         - ./data/servers:/crafty/servers
         - ./data/config:/crafty/app/config
         - ./data/import:/crafty/import
+    labels:
+        com.centurylinklabs.watchtower.enable: true
