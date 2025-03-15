@@ -1,48 +1,58 @@
 services:
-  hbbs:
-    container_name: hbbs
-    image: rustdesk/rustdesk-server:latest
-    command: hbbs
-    ports:
-      # - "21114:21114" # web console - Pro only feature
-      - "21115:21115" # NAT type test
-      - "21116:21116/tcp" # ID registration, heartbeat service
-      - "21116:21116/udp" # TCP hole punching, connection service
-      - "21118:21118" # support for web clients
+  rustdesk-server:
+    image: rustdesk/rustdesk-server-s6:latest
+    container_name: rustdesk-server
+    restart: unless-stopped
     environment:
-      TZ: "Europe/Vienna"
       RELAY: "fernwartung.noassl.at:21117"
+      TZ: "Europe/Vienna"
     volumes:
-      - ./data:/root
-    depends_on:
-      - hbbr
-    restart: unless-stopped
+      - ./data:/data
     networks:
-      - rustdesk
+      - traefik
     labels:
-      traefik.enable: true
-      traefik.http.routers.freshrss.rule: "Host(`fernwartung.noassl.at`)"
-      traefik.http.routers.freshrss.entryPoints: "websecure"
-      traefik.http.routers.freshrss.tls: true
+      - traefik.enable=true
+      ## Configure Rustdesk TCP
+      - traefik.tcp.routers.rustdesk-rd5.entrypoints=rd5-tcp
+      - traefik.tcp.routers.rustdesk-rd5.rule=HostSNI(`*`)
+      - traefik.tcp.routers.rustdesk-rd5.service=rustdesk-rd5
+      - traefik.tcp.services.rustdesk-rd5.loadbalancer.server.port=21115
+      - traefik.tcp.routers.rustdesk-rd5.tls=false
+      - traefik.tcp.routers.rustdesk-rd5.tls.passthrough=true
 
-  hbbr:
-    container_name: hbbr
-    image: rustdesk/rustdesk-server:latest
-    command: hbbr
-    ports:
-      - "21117:21117" # relay services
-      - "21119:21119" # support for web clients
-    volumes:
-      - ./data:/root
-    restart: unless-stopped
-    networks:
-      - rustdesk
-    labels:
-      traefik.enable: true
-      traefik.http.routers.freshrss.rule: "Host(`fernwartung.noassl.at`)"
-      traefik.http.routers.freshrss.entryPoints: "websecure"
-      traefik.http.routers.freshrss.tls: true
+      - traefik.tcp.routers.rustdesk-rd6.entrypoints=rd6-tcp
+      - traefik.tcp.routers.rustdesk-rd6.rule=HostSNI(`*`)
+      - traefik.tcp.routers.rustdesk-rd6.service=rustdesk-rd6
+      - traefik.tcp.services.rustdesk-rd6.loadbalancer.server.port=21116
+      - traefik.tcp.routers.rustdesk-rd6.tls=false
+      - traefik.tcp.routers.rustdesk-rd6.tls.passthrough=true
+
+      - traefik.tcp.routers.rustdesk-rd7.entrypoints=rd7-tcp
+      - traefik.tcp.routers.rustdesk-rd7.rule=HostSNI(`*`)
+      - traefik.tcp.routers.rustdesk-rd7.service=rustdesk-rd7
+      - traefik.tcp.services.rustdesk-rd7.loadbalancer.server.port=21117
+      - traefik.tcp.routers.rustdesk-rd7.tls=false
+      - traefik.tcp.routers.rustdesk-rd7.tls.passthrough=true
+
+      - traefik.tcp.routers.rustdesk-rd8.entrypoints=rd8-tcp
+      - traefik.tcp.routers.rustdesk-rd8.rule=HostSNI(`*`)
+      - traefik.tcp.routers.rustdesk-rd8.service=rustdesk-rd8
+      - traefik.tcp.services.rustdesk-rd8.loadbalancer.server.port=21118
+      - traefik.tcp.routers.rustdesk-rd8.tls=false
+      - traefik.tcp.routers.rustdesk-rd8.tls.passthrough=true
+
+      - traefik.tcp.routers.rustdesk-rd9.entrypoints=rd9-tcp
+      - traefik.tcp.routers.rustdesk-rd9.rule=HostSNI(`*`)
+      - traefik.tcp.routers.rustdesk-rd9.service=rustdesk-rd9
+      - traefik.tcp.services.rustdesk-rd9.loadbalancer.server.port=21119
+      - traefik.tcp.routers.rustdesk-rd9.tls=false
+      - traefik.tcp.routers.rustdesk-rd9.tls.passthrough=true
+
+      ## Configure Rustdesk UDP
+      - traefik.udp.routers.rustdesk-rd6.entrypoints=rd6-udp
+      - traefik.udp.routers.rustdesk-rd6.service=rustdesk-rd6
+      - traefik.udp.services.rustdesk-rd6.loadbalancer.server.port=21116
 
 networks:
-  rustdesk:
-    driver: bridge
+  traefik:
+    external: true
