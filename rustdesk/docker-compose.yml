@@ -1,0 +1,48 @@
+services:
+  hbbs:
+    container_name: hbbs
+    image: rustdesk/rustdesk-server:latest
+    command: hbbs
+    ports:
+      # - "21114:21114" # web console - Pro only feature
+      - "21115:21115" # NAT type test
+      - "21116:21116/tcp" # ID registration, heartbeat service
+      - "21116:21116/udp" # TCP hole punching, connection service
+      - "21118:21118" # support for web clients
+    environment:
+      TZ: "Europe/Vienna"
+      RELAY: "fernwartung.noassl.at:21117"
+    volumes:
+      - ./data:/root
+    depends_on:
+      - hbbr
+    restart: unless-stopped
+    networks:
+      - rustdesk
+    labels:
+      traefik.enable: true
+      traefik.http.routers.freshrss.rule: "Host(`fernwartung.noassl.at`)"
+      traefik.http.routers.freshrss.entryPoints: "websecure"
+      traefik.http.routers.freshrss.tls: true
+
+  hbbr:
+    container_name: hbbr
+    image: rustdesk/rustdesk-server:latest
+    command: hbbr
+    ports:
+      - "21117:21117" # relay services
+      - "21119:21119" # support for web clients
+    volumes:
+      - ./data:/root
+    restart: unless-stopped
+    networks:
+      - rustdesk
+    labels:
+      traefik.enable: true
+      traefik.http.routers.freshrss.rule: "Host(`fernwartung.noassl.at`)"
+      traefik.http.routers.freshrss.entryPoints: "websecure"
+      traefik.http.routers.freshrss.tls: true
+
+networks:
+  rustdesk:
+    driver: bridge
