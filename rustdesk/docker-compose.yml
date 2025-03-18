@@ -6,6 +6,8 @@ services:
     environment:
       RELAY: "fernwartung.noassl.at:21117"
       TZ: "Europe/Vienna"
+      ENCRYPTED_ONLY: 1
+    env_file: .env
     ports:
       - "21115:21115/tcp" # NAT type test
       - "21116:21116/tcp" # TCP hole punching, connection service
