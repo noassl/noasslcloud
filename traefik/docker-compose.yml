@@ -7,13 +7,6 @@ services:
       - "80:80"
       - "443:443"
       - "8081:8080"
-      # Rustdesk (Fernwartung) ports
-      - "21115:21115/tcp"
-      - "21116:21116/tcp"
-      - "21117:21117/tcp"
-      - "21118:21118/tcp"
-      - "21119:21119/tcp"
-      - "21116:21116/udp"
     command:
       - --global.sendAnonymousUsage=false
       # HTTP to HTTPS redirection
@@ -34,13 +27,6 @@ services:
       - --log.filePath=/logs/traefik.log
       - --log.level=ERROR
       - --accessLog.filePath=/logs/access.log
-      # RustDesk (Fernwartung) entrypoints
-      - --entrypoints.rd5-tcp.address=:21115/tcp
-      - --entrypoints.rd6-tcp.address=:21116/tcp
-      - --entrypoints.rd7-tcp.address=:21117/tcp
-      - --entrypoints.rd8-tcp.address=:21118/tcp
-      - --entrypoints.rd9-tcp.address=:21119/tcp
-      - --entrypoints.rd6-udp.address=:21116/udp
     labels:
       - traefik.enable=true
       - traefik.http.routers.traefik.entrypoints=websecure
