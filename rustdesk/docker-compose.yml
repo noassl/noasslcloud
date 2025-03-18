@@ -7,12 +7,12 @@ services:
       RELAY: "fernwartung.noassl.at:21117"
       TZ: "Europe/Vienna"
     ports:
-      - "21115:21115/tcp"
-      - "21116:21116/tcp"
-      - "21117:21117/tcp"
-      - "21118:21118/tcp"
-      - "21119:21119/tcp"
-      - "21116:21116/udp"
+      - "21115:21115/tcp" # NAT type test
+      - "21116:21116/tcp" # TCP hole punching, connection service
+      - "21117:21117/tcp" # Relay services
+      - "21118:21118/tcp" # Support for web clients
+      - "21119:21119/tcp" # Support for web clients
+      - "21116:21116/udp" # ID registration, heartbeat service
     volumes:
       - ./data:/data
     networks:
