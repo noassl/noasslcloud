@@ -1,0 +1,25 @@
+services:
+  rustdesk-server:
+    image: rustdesk/rustdesk-server-s6:latest
+    container_name: rustdesk-server
+    restart: unless-stopped
+    environment:
+      RELAY: "fernwartung.noassl.at:21117"
+      TZ: "Europe/Vienna"
+      ENCRYPTED_ONLY: 1
+    env_file: .env
+    ports:
+      - "21115:21115/tcp" # NAT type test
+      - "21116:21116/tcp" # TCP hole punching, connection service
+      - "21117:21117/tcp" # Relay services
+      - "21118:21118/tcp" # Support for web clients
+      - "21119:21119/tcp" # Support for web clients
+      - "21116:21116/udp" # ID registration, heartbeat service
+    volumes:
+      - ./data:/data
+    networks:
+      - traefik
+
+networks:
+  traefik:
+    external: true
