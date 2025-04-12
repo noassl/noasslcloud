@@ -34,9 +34,20 @@ services:
     image: nginx:alpine
     volumes:
       - reports:/usr/share/nginx/html
-    ports:
-      - "8080:80"
+    labels:
+      traefik.enable: true
+      traefik.http.routers.discord-analytics.rule: "Host(`discord-analytics.noassl.at`)"
+      traefik.http.routers.discord-analytics.entryPoints: "websecure"
+      traefik.http.routers.discord-analytics.tls: true
+    environment:
+      NGINX_HOST: "discord-analytics.noassl.at"
+    networks:
+      - traefik
 
 volumes:
   reports:
   exports:
+
+networks:
+  traefik:
+    external: true
