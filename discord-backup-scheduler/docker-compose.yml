@@ -1,0 +1,42 @@
+services:
+  ofelia:
+    image: mcuadros/ofelia:latest
+    depends_on:
+      - exporter
+    command: daemon --docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+  exporter:
+    build:
+      context: ./exporter
+      dockerfile: Dockerfile
+    volumes:
+      - exports:/exports
+    env_file:
+      - .env
+    labels:
+      ofelia.enabled: "true"
+      ofelia.job-run.exporter.schedule: "@midnight"
+
+  analyzer:
+    build:
+      context: ./analyzer
+      dockerfile: Dockerfile
+    volumes:
+      - exports:/exports
+      - reports:/reports
+    labels:
+      ofelia.enabled: "true"
+      ofelia.job-run.analyzer.schedule: "@midnight"
+
+  webhost:
+    image: nginx:alpine
+    volumes:
+      - reports:/usr/share/nginx/html
+    ports:
+      - "8080:80"
+
+volumes:
+  reports:
+  exports:

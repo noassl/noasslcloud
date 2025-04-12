@@ -1,0 +1,2 @@
+- Ausführn geht nur mid `docker compose`, weil sunst de env vars ned gsetzt wern
+- syntax zum rebuildn vorm starten: `docker compose up --build <service name>`
