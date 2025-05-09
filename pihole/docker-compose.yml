@@ -22,6 +22,13 @@ services:
     networks:
       pihole_macvlan:
         ipv4_address: 192.168.0.1
+      traefik:
+    labels:
+      traefik.enable: true
+      traefik.http.routers.pihole.rule: "Host(`pihole.noassl.at`)"
+      traefik.http.routers.pihole.entryPoints: "websecure"
+      traefik.http.routers.pihole.tls: true
+      traefik.http.services.pihole.loadbalancer.server.port: 80
 
 networks:
   pihole_macvlan:
@@ -33,3 +40,5 @@ networks:
         - subnet: 192.168.0.0/24
           gateway: 192.168.0.254
           ip_range: 192.168.0.1/32
+  traefik:
+    external: true
