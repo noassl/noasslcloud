@@ -1,0 +1,68 @@
+# yaml-language-server: $schema=https://creativeprojects.github.io/resticprofile/jsonschema/config-1.json
+
+version: "1"
+
+syncthing:
+    repository: "rclone:truenas:backups/janik/restic/Syncthing"
+    password-file: "/home/nuc/Syncthing/.restic-password"
+    lock: "/tmp/resticprofile-profile-home.lock"
+    force-inactive-lock: true
+    verbose: true
+    backup:
+        verbose: true
+        tag:
+            - "resticprofile.timer"
+        source:
+            - "/home/nuc/Syncthing"
+        exclude-file: "/home/nuc/Syncthing/.restic-exclude"
+        schedule: daily
+        schedule-permission: system
+        schedule-log: "/home/nuc/restic-logs/Syncthing.log"
+        schedule-lock-wait: "15m"
+    forget:
+        verbose: true
+        tag:
+            - "resticprofile.timer"
+        group-by: "paths"
+        schedule: daily
+        schedule-log: "/home/nuc/restic-logs/Syncthing.log"
+        schedule-permission: system
+        schedule-lock-wait: "15m"
+        keep-daily: 14
+        keep-weekly: 4
+        keep-monthly: 6
+        keep-yearly: 3
+    prune:
+        schedule: weekly
+        schedule-log: "/home/nuc/restic-logs/Syncthing.log"
+        schedule-permission: system
+        schedule-lock-wait: "15m"
+    copy:
+        repository: "rclone:edu-onedrive:restic-mirror/Syncthing"
+        password-file: "/home/nuc/Syncthing/.restic-password"
+        schedule: daily
+        schedule-log: "/home/nuc/restic-logs/Syncthing.log"
+        schedule-permission: system
+        schedule-lock-wait: "15m"
+onedrive:
+    repository: "rclone:edu-onedrive:restic-mirror/Syncthing"
+    password-file: "/home/nuc/Syncthing/.restic-password"
+    forget:
+        verbose: true
+        tag:
+            - "resticprofile.timer"
+            - "systemd.timer"
+        group-by: "paths"
+        schedule: daily
+        schedule-log: "/home/nuc/restic-logs/Syncthing.log"
+        schedule-permission: system
+        schedule-lock-wait: "15m"
+        keep-daily: 14
+        keep-weekly: 4
+        keep-monthly: 6
+        keep-yearly: 3
+    prune:
+        schedule: weekly
+        schedule-log: "/home/nuc/restic-logs/Syncthing.log"
+        schedule-permission: system
+        schedule-lock-wait: "15m"
