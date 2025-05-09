@@ -17,7 +17,7 @@ syncthing:
         exclude-file: "/home/nuc/Syncthing/.restic-exclude"
         schedule: daily
         schedule-permission: system
-        schedule-log: "/home/nuc/restic-logs/Syncthing.log"
+        schedule-log: "/var/log/resticprofile/Syncthing.log"
         schedule-lock-wait: "15m"
     forget:
         verbose: true
@@ -25,7 +25,7 @@ syncthing:
             - "resticprofile.timer"
         group-by: "paths"
         schedule: daily
-        schedule-log: "/home/nuc/restic-logs/Syncthing.log"
+        schedule-log: "/var/log/resticprofile/Syncthing.log"
         schedule-permission: system
         schedule-lock-wait: "15m"
         keep-daily: 14
@@ -34,14 +34,14 @@ syncthing:
         keep-yearly: 3
     prune:
         schedule: weekly
-        schedule-log: "/home/nuc/restic-logs/Syncthing.log"
+        schedule-log: "/var/log/resticprofile/Syncthing.log"
         schedule-permission: system
         schedule-lock-wait: "15m"
     copy:
         repository: "rclone:edu-onedrive:restic-mirror/Syncthing"
         password-file: "/home/nuc/Syncthing/.restic-password"
         schedule: daily
-        schedule-log: "/home/nuc/restic-logs/Syncthing.log"
+        schedule-log: "/var/log/resticprofile/Syncthing.log"
         schedule-permission: system
         schedule-lock-wait: "15m"
 onedrive:
@@ -54,7 +54,7 @@ onedrive:
             - "systemd.timer"
         group-by: "paths"
         schedule: daily
-        schedule-log: "/home/nuc/restic-logs/Syncthing.log"
+        schedule-log: "/var/log/resticprofile/onedrive.log"
         schedule-permission: system
         schedule-lock-wait: "15m"
         keep-daily: 14
@@ -63,6 +63,6 @@ onedrive:
         keep-yearly: 3
     prune:
         schedule: weekly
-        schedule-log: "/home/nuc/restic-logs/Syncthing.log"
+        schedule-log: "/var/log/resticprofile/onedrive.log"
         schedule-permission: system
         schedule-lock-wait: "15m"
