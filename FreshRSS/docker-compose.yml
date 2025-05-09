@@ -14,8 +14,6 @@ services:
     volumes:
       - ./data:/var/www/FreshRSS/data
       - ./extensions:/var/www/FreshRSS/extensions
-    ports:
-      - "8080:80"
     environment:
       TZ: Europe/Vienna
       CRON_MIN: '3,33'
