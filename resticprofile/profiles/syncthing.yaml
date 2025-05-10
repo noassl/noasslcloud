@@ -6,15 +6,14 @@ syncthing:
   password-file: "/home/nuc/Syncthing/.restic-password"
   lock: "/tmp/resticprofile-profile-home.lock"
   force-inactive-lock: true
+  verbose: true
   backup:
-    verbose: true
     tag:
       - "resticprofile.timer"
     source:
       - "/home/nuc/Syncthing"
     exclude-file: "/home/nuc/Syncthing/.restic-exclude"
   forget:
-    verbose: true
     tag:
       - "resticprofile.timer"
     group-by: "paths"
@@ -31,8 +30,8 @@ onedrive:
   inherit: "schedule-cleanup"
   repository: "rclone:edu-onedrive:restic-mirror/Syncthing"
   password-file: "/home/nuc/Syncthing/.restic-password"
+  verbose: true
   forget:
-    verbose: true
     tag:
       - "resticprofile.timer"
       - "systemd.timer"
