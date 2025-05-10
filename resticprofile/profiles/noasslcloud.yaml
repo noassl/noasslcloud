@@ -1,0 +1,10 @@
+# yaml-language-server: $schema=https://creativeprojects.github.io/resticprofile/jsonschema/config-1.json
+
+noasslcloud:
+  inherit: "schedule-all"
+  repository: "rclone:truenas:backups/janik/restic/noasslcloud"
+  password-file: "/home/nuc/noasslcloud/.restic-password"
+  backup:
+    source:
+      - "/home/nuc/noasslcloud"
+    exclude-file: "/home/nuc/Syncthing/.restic-exclude"
