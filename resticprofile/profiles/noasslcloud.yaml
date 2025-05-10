@@ -7,4 +7,4 @@ noasslcloud:
   backup:
     source:
       - "/home/nuc/noasslcloud"
-    exclude-file: "/home/nuc/Syncthing/.restic-exclude"
+    exclude-file: "/home/nuc/noasslcloud/.restic-exclude"
