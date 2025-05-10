@@ -1,0 +1,1 @@
+bash-alias: `alias resticprofile="sudo resticprofile -c /home/nuc/noasslcloud/resticprofile/profiles.yaml"`
