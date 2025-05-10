@@ -4,9 +4,6 @@ syncthing:
   inherit: "schedule-all"
   repository: "rclone:truenas:backups/janik/restic/Syncthing"
   password-file: "/home/nuc/Syncthing/.restic-password"
-  lock: "/tmp/resticprofile-profile-home.lock"
-  force-inactive-lock: true
-  verbose: true
   backup:
     source:
       - "/home/nuc/Syncthing"

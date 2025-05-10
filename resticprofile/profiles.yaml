@@ -5,7 +5,13 @@ version: "1"
 includes:
     - "profiles/*.yaml"
 
-#  Anchor for scheduling defaults
+# Base profile for configuring locking and verbosity
+base:
+    lock: "/tmp/resticprofile-{{ .Profile.Name }}.lock"
+    force-inactive-lock: true
+    verbose: true
+
+#  Anchor for scheduling defaults (https://ref.coddy.tech/yaml/yaml-anchors)
 schedule-base: &schedule-base
     schedule: daily
     schedule-log: "/var/log/resticprofile/{{ .Profile.Name }}.log"
@@ -24,6 +30,7 @@ schedule-all:
 
 # Base profile that enables default schedule for `forget` and `prune`
 schedule-cleanup:
+    inherit: "base"
     forget:
         <<: *schedule-base
         keep-daily: 14
