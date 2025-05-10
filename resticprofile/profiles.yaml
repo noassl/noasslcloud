@@ -2,67 +2,30 @@
 
 version: "1"
 
-syncthing:
-    repository: "rclone:truenas:backups/janik/restic/Syncthing"
-    password-file: "/home/nuc/Syncthing/.restic-password"
-    lock: "/tmp/resticprofile-profile-home.lock"
-    force-inactive-lock: true
-    verbose: true
+includes:
+    - "profiles/*.yaml"
+
+#  Anchor for scheduling defaults
+schedule-base: &schedule-base
+    schedule: daily
+    schedule-log: "/var/log/resticprofile/{{ .Profile.Name }}.log"
+    schedule-permission: system
+    schedule-lock-wait: "15m"
+
+# Base profile that enables default schedule for all tasks
+schedule-all:
     backup:
-        verbose: true
-        tag:
-            - "resticprofile.timer"
-        source:
-            - "/home/nuc/Syncthing"
-        exclude-file: "/home/nuc/Syncthing/.restic-exclude"
-        schedule: daily
-        schedule-permission: system
-        schedule-log: "/var/log/resticprofile/Syncthing.log"
-        schedule-lock-wait: "15m"
+        <<: *schedule-base
     forget:
-        verbose: true
-        tag:
-            - "resticprofile.timer"
-        group-by: "paths"
-        schedule: daily
-        schedule-log: "/var/log/resticprofile/Syncthing.log"
-        schedule-permission: system
-        schedule-lock-wait: "15m"
-        keep-daily: 14
-        keep-weekly: 4
-        keep-monthly: 6
-        keep-yearly: 3
+        <<: *schedule-base
     prune:
-        schedule: weekly
-        schedule-log: "/var/log/resticprofile/Syncthing.log"
-        schedule-permission: system
-        schedule-lock-wait: "15m"
+        <<: *schedule-base
     copy:
-        repository: "rclone:edu-onedrive:restic-mirror/Syncthing"
-        password-file: "/home/nuc/Syncthing/.restic-password"
-        schedule: daily
-        schedule-log: "/var/log/resticprofile/Syncthing.log"
-        schedule-permission: system
-        schedule-lock-wait: "15m"
-onedrive:
-    repository: "rclone:edu-onedrive:restic-mirror/Syncthing"
-    password-file: "/home/nuc/Syncthing/.restic-password"
+        <<: *schedule-base
+
+# Base profile that enables default schedule for `forget` and `prune`
+schedule-cleanup:
     forget:
-        verbose: true
-        tag:
-            - "resticprofile.timer"
-            - "systemd.timer"
-        group-by: "paths"
-        schedule: daily
-        schedule-log: "/var/log/resticprofile/onedrive.log"
-        schedule-permission: system
-        schedule-lock-wait: "15m"
-        keep-daily: 14
-        keep-weekly: 4
-        keep-monthly: 6
-        keep-yearly: 3
+        <<: *schedule-base
     prune:
-        schedule: weekly
-        schedule-log: "/var/log/resticprofile/onedrive.log"
-        schedule-permission: system
-        schedule-lock-wait: "15m"
+        <<: *schedule-base
