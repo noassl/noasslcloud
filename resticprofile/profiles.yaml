@@ -14,12 +14,11 @@ schedule-base: &schedule-base
 
 # Base profile that enables default schedule for all tasks
 schedule-all:
+    inherit: "schedule-cleanup"
     backup:
         <<: *schedule-base
-    forget:
-        <<: *schedule-base
-    prune:
-        <<: *schedule-base
+        tag:
+            - "resticprofile.timer"
     copy:
         <<: *schedule-base
 
@@ -27,5 +26,13 @@ schedule-all:
 schedule-cleanup:
     forget:
         <<: *schedule-base
+        keep-daily: 14
+        keep-weekly: 4
+        keep-monthly: 6
+        keep-yearly: 3
+        tag:
+            - "resticprofile.timer"
+        group-by: "paths"
     prune:
         <<: *schedule-base
+        schedule: weekly

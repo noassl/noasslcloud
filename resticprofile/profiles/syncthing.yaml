@@ -8,21 +8,9 @@ syncthing:
   force-inactive-lock: true
   verbose: true
   backup:
-    tag:
-      - "resticprofile.timer"
     source:
       - "/home/nuc/Syncthing"
     exclude-file: "/home/nuc/Syncthing/.restic-exclude"
-  forget:
-    tag:
-      - "resticprofile.timer"
-    group-by: "paths"
-    keep-daily: 14
-    keep-weekly: 4
-    keep-monthly: 6
-    keep-yearly: 3
-  prune:
-    schedule: weekly
   copy:
     repository: "rclone:edu-onedrive:restic-mirror/Syncthing"
     password-file: "/home/nuc/Syncthing/.restic-password"
@@ -35,10 +23,3 @@ onedrive:
     tag:
       - "resticprofile.timer"
       - "systemd.timer"
-    group-by: "paths"
-    keep-daily: 14
-    keep-weekly: 4
-    keep-monthly: 6
-    keep-yearly: 3
-  prune:
-    schedule: weekly
