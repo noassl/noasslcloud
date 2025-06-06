@@ -11,7 +11,7 @@ base:
     force-inactive-lock: true
     verbose: true
 
-#  Anchor for scheduling defaults (https://ref.coddy.tech/yaml/yaml-anchors)
+# Anchor for scheduling defaults (https://ref.coddy.tech/yaml/yaml-anchors)
 schedule-base: &schedule-base
     schedule: daily
     schedule-log: "/var/log/resticprofile/{{ .Profile.Name }}.log"

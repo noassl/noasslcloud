@@ -8,3 +8,8 @@ noasslcloud:
     source:
       - "/home/nuc/noasslcloud"
     exclude-file: "/home/nuc/noasslcloud/.restic-exclude"
+  copy:
+    initialize: true
+    initialize-copy-chunker-params: true # Für deduplication im remote (https://restic.readthedocs.io/en/stable/045_working_with_repos.html#ensuring-deduplication-for-copied-snapshots / https://creativeprojects.github.io/resticprofile/configuration/copy/index.html#initialisation)
+    repository: "rclone:edu-onedrive:restic-mirror/noasslcloud"
+    password-file: "/home/nuc/noasslcloud/.restic-password"
