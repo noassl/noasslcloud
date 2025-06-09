@@ -2,9 +2,8 @@ services:
   crafty:
     container_name: crafty
     image: registry.gitlab.com/crafty-controller/crafty-4:latest
-    restart: always
     environment:
-        - TZ=Etc/CEST
+        TZ: Europe/Vienna
     ports:
         - "8000:8000" # HTTP (Crafty-Interface)
         - "8443:8443" # HTTPS (Crafty-Interface)

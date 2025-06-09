@@ -32,6 +32,7 @@ services:
 
   webhost:
     image: nginx:alpine
+    restart: unless-stopped
     volumes:
       - reports:/usr/share/nginx/html
     labels:
