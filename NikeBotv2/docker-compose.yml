@@ -1,12 +1,11 @@
 services:
   NikeBotv2:
-    image: ghcr.io/littlegamer757/nikebotv2:master
+    image: ghcr.io/noassl/nikebotv2:main
     volumes:
       - ./config.json:/app/config.json
-      - ./version.properties:/app/version.properties
     env_file:
       - .env
     restart: unless-stopped
-    container_name: NikeBotv2
+    container_name: "NikeBotv2"
     labels:
       com.centurylinklabs.watchtower.enable: true
