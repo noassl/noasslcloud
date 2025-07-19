@@ -1,0 +1,29 @@
+global:
+  sendAnonymousUsage: true
+entrypoints:
+  web:
+    address: ":80"
+  websecure:
+    address: ":443"
+    http:
+      tls:
+        certResolver: letsencrypt
+providers:
+  docker:
+    exposedByDefault: false
+    network: traefik
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      email: jneissl27@gmail.com
+      storage: /etc/traefik/acme.json
+      httpChallenge:
+        entryPoint: web
+log:
+  filePath: /logs/traefik.log
+  level: ERROR
+accessLog:
+  filePath: /logs/access.log
+api:
+  dashboard: true
+  insecure: true

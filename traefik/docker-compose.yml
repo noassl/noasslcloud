@@ -7,30 +7,6 @@ services:
       - "80:80"
       - "443:443"
       - "8081:8080"
-    command:
-      - --global.sendAnonymousUsage=false
-      # HTTP to HTTPS redirection
-      - --entrypoints.web.address=:80
-      # - --entrypoints.web.http.redirections.entrypoint.to=websecure
-      # - --entrypoints.web.http.redirections.entrypoint.scheme=https
-      - --entrypoints.websecure.address=:443
-      - --entrypoints.websecure.http.tls=true
-      # Traefik dashboard
-      - --api.dashboard=true # Enable dashboard
-      - --api.insecure=true # Public access to API (insecure)
-      # Conf file for TLS certs
-      # - --providers.file.filename=/etc/traefik/certs.config.yml
-      # Docker provider
-      - --providers.docker.exposedByDefault=false
-      - --providers.docker.network=traefik
-      # Let's encrypt
-      - --certificatesresolvers.letsencrypt.acme.email=jneissl27@gmail.com
-      - --certificatesresolvers.letsencrypt.acme.storage=/etc/traefik/acme.json
-      - --certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web
-      # Logs
-      - --log.filePath=/logs/traefik.log
-      - --log.level=ERROR
-      - --accessLog.filePath=/logs/access.log
     labels:
       - traefik.enable=true
       - traefik.http.routers.traefik.entrypoints=websecure
@@ -38,8 +14,7 @@ services:
       - com.centurylinklabs.watchtower.enable=true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./config:/etc/traefik
-      - ./certs:/etc/certs
+      - ./etc:/etc/traefik
       - ./logs:/logs
     networks:
       - "traefik"
