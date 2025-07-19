@@ -7,7 +7,7 @@ entrypoints:
     address: ":443"
     http:
       tls:
-        certResolver: letsencrypt
+        certResolver: cloudflare
         domains:
           - main: noassl.at
             sans:
@@ -19,7 +19,7 @@ providers:
   file:
     directory: /etc/traefik/configs
 certificatesResolvers:
-  letsencrypt:
+  cloudflare:
     acme:
       email: jneissl27@gmail.com
       storage: /etc/traefik/cloudflare.acme.json

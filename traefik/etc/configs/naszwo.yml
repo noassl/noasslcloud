@@ -1,13 +1,13 @@
 http:
   routers:
-    immich:
-      rule: "Host(`immich.neissl.at`)"
+    truenas:
+      rule: "Host(`naszwo.neissl.at`)"
       entryPoints: "websecure"
-      service: immich
+      service: truenas
       tls:
         certresolver: hetzner
   services:
-    immich:
+    truenas:
       loadBalancer:
         servers:
-          - url: {{ env "IMMICH_IP" }}
+          - url: {{ env "NASZWO_IP" }}

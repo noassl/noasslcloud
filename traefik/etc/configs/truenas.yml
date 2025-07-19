@@ -10,4 +10,4 @@ http:
     truenas:
       loadBalancer:
         servers:
-          - url: "http://192.168.0.52"
+          - url: {{ env "TRUENAS_IP" }}
