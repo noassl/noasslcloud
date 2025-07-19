@@ -23,6 +23,7 @@ services:
       traefik.http.routers.freshrss.rule: "Host(`freshrss.noassl.at`)"
       traefik.http.routers.freshrss.entryPoints: "websecure"
       traefik.http.routers.freshrss.tls: true
+      traefik.http.routers.freshrss.tls.certresolver: "letsencrypt"
       com.centurylinklabs.watchtower.enable: true
 
 networks:
