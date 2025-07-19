@@ -6,8 +6,19 @@ http:
       service: truenas
       tls:
         certresolver: hetzner
+    truenas-webdav:
+      rule: "Host(`truenas.neissl.at`) && PathPrefix(`/webdav`)"
+      entryPoints: "websecure"
+      service: truenas-webdav
+      tls:
+        certresolver: hetzner
   services:
     truenas:
       loadBalancer:
         servers:
           - url: {{ env "TRUENAS_IP" }}
+    truenas-webdav:
+      loadBalancer:
+        servers:
+          - url: http://192.168.0.52:30035
+          
