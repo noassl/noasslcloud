@@ -23,8 +23,8 @@ certificatesResolvers:
     acme:
       email: jneissl27@gmail.com
       storage: /etc/traefik/acme.json
-      httpChallenge:
-        entryPoint: web
+      dnsChallenge:
+        provider: cloudflare
 log:
   filePath: /logs/traefik.log
   level: ERROR
