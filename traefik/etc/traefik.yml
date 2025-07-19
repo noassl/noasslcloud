@@ -8,6 +8,10 @@ entrypoints:
     http:
       tls:
         certResolver: letsencrypt
+        domains:
+          - main: noassl.at
+            sans:
+              - "*.noassl.at"
 providers:
   docker:
     exposedByDefault: false
