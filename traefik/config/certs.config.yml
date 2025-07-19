@@ -1,7 +1,0 @@
-tls:
-  certificates:
-    - certFile: /etc/certs/noasslat.crt
-      keyFile: /etc/certs/noasslat.key
-      stores:
-        - default
-
