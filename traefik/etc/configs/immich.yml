@@ -1,9 +1,11 @@
 http:
   routers:
     immich:
-      rule: "Host(`immich.noassl.at`)"
+      rule: "Host(`immich.neissl.at`)"
       entryPoints: "websecure"
       service: immich
+      tls:
+        certresolver: hetzner
   services:
     immich:
       loadBalancer:

@@ -1,8 +1,11 @@
 http:
   routers:
     truenas:
-      rule: "Host(`truenas.noassl.at`)"
+      rule: "Host(`truenas.neissl.at`)"
       entryPoints: "websecure"
+      service: truenas
+      tls:
+        certresolver: hetzner
   services:
     truenas:
       loadBalancer:
