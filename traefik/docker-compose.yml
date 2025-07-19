@@ -19,10 +19,14 @@ services:
       - --api.dashboard=true # Enable dashboard
       - --api.insecure=true # Public access to API (insecure)
       # Conf file for TLS certs
-      - --providers.file.filename=/etc/traefik/certs.config.yml
+      # - --providers.file.filename=/etc/traefik/certs.config.yml
       # Docker provider
       - --providers.docker.exposedByDefault=false
       - --providers.docker.network=traefik
+      # Let's encrypt
+      - --certificatesresolvers.letsencrypt.acme.email=jneissl27@gmail.com
+      - --certificatesresolvers.letsencrypt.acme.storage=/etc/traefik/acme.json
+      - --certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web
       # Logs
       - --log.filePath=/logs/traefik.log
       - --log.level=ERROR
