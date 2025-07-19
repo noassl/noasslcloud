@@ -20,9 +20,15 @@ certificatesResolvers:
   letsencrypt:
     acme:
       email: jneissl27@gmail.com
-      storage: /etc/traefik/acme.json
-      httpChallenge:
-        entryPoint: web
+      storage: /etc/traefik/cloudflare.acme.json
+      dnsChallenge:
+        provider: cloudflare
+  hetzner:
+    acme:
+      email: jneissl27@gmail.com
+      storage: /etc/traefik/hetzner.acme.json
+      dnsChallenge:
+        provider: hetzner
 log:
   filePath: /logs/traefik.log
   level: ERROR
