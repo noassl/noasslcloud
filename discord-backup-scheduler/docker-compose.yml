@@ -39,7 +39,6 @@ services:
       traefik.enable: true
       traefik.http.routers.discord-analytics.rule: "Host(`discord-analytics.noassl.at`)"
       traefik.http.routers.discord-analytics.entryPoints: "websecure"
-      traefik.http.routers.discord-analytics.tls: true
       traefik.http.routers.discord-analytics.middlewares: "discord-analytics-auth"
       traefik.http.middlewares.discord-analytics-auth.basicauth.users: "user:$$2y$$05$$KAs4e4zflSuJ/dtWcSvZO.Dh0hrpVmJzoAb8x19QQSjrn.I7Kb9Pa"
 
