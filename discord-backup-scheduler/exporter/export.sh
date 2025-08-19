@@ -13,6 +13,7 @@ function exportPartial {
 
   echo "Exporting messages since $lastExport"
   /app/exporter/DiscordChatExporter.Cli exportguild \
+    --parallel 5 \
     -g "$2" \
     --format Json \
     -o "$1" \
@@ -24,6 +25,7 @@ function exportPartial {
 function exportFull {
   echo "Performing full export"
   /app/exporter/DiscordChatExporter.Cli exportguild \
+    --parallel 5 \
     -g "$2" \
     --format Json \
     -o "$1" \
