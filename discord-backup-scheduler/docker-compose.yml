@@ -1,12 +1,11 @@
 services:
-  ofelia:
+  scheduler:
     container_name: "discord-analytics_scheduler"
-    image: mcuadros/ofelia:latest
-    depends_on:
-      - exporter
-    command: daemon --docker
+    image: alpine:latest
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./scheduler/cronjobs:/etc/cron.d
+    entrypoint: crond -f
 
   exporter:
     container_name: "discord-analytics_exporter"
@@ -17,9 +16,6 @@ services:
       - exports:/exports
     env_file:
       - .env
-    labels:
-      ofelia.enabled: "true"
-      ofelia.job-run.exporter.schedule: "@midnight"
 
   analyzer:
     container_name: "discord-analytics_analyzer"
@@ -29,9 +25,6 @@ services:
     volumes:
       - exports:/exports
       - reports:/reports
-    labels:
-      ofelia.enabled: "true"
-      ofelia.job-run.analyzer.schedule: "@midnight"
 
   webhost:
     container_name: "discord-analytics_webhost"
@@ -39,15 +32,14 @@ services:
     restart: unless-stopped
     volumes:
       - reports:/usr/share/nginx/html
+    environment:
+      NGINX_HOST: "discord-analytics.noassl.at"
     labels:
       traefik.enable: true
       traefik.http.routers.discord-analytics.rule: "Host(`discord-analytics.noassl.at`)"
       traefik.http.routers.discord-analytics.entryPoints: "websecure"
       traefik.http.routers.discord-analytics.middlewares: "discord-analytics-auth"
       traefik.http.middlewares.discord-analytics-auth.basicauth.users: "user:$$2y$$05$$KAs4e4zflSuJ/dtWcSvZO.Dh0hrpVmJzoAb8x19QQSjrn.I7Kb9Pa"
-
-    environment:
-      NGINX_HOST: "discord-analytics.noassl.at"
     networks:
       - traefik
 
