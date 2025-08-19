@@ -1,5 +1,6 @@
 services:
   ofelia:
+    container_name: "discord-analytics_scheduler"
     image: mcuadros/ofelia:latest
     depends_on:
       - exporter
@@ -8,6 +9,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
   exporter:
+    container_name: "discord-analytics_exporter"
     build:
       context: ./exporter
       dockerfile: Dockerfile
@@ -20,6 +22,7 @@ services:
       ofelia.job-run.exporter.schedule: "@midnight"
 
   analyzer:
+    container_name: "discord-analytics_analyzer"
     build:
       context: ./analyzer
       dockerfile: Dockerfile
@@ -31,6 +34,7 @@ services:
       ofelia.job-run.analyzer.schedule: "@midnight"
 
   webhost:
+    container_name: "discord-analytics_webhost"
     image: nginx:alpine
     restart: unless-stopped
     volumes:
