@@ -6,7 +6,7 @@ workDir="/app"
 mkdir -p "$workDir"
 
 exportPartial() {
-  # GuildID wird per env var gesetzt
+  # Discord Token wird per env var gesetzt
   /opt/app/docker-entrypoint.sh exportguild \
     --parallel 5 \
     -g "$2" \
