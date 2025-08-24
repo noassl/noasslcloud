@@ -6,31 +6,14 @@ workDir="/app"
 mkdir -p "$workDir"
 
 function exportPartial {
-  lastExportFile=$(ls -1t "$exportsDir"/*.json | head -n 1)
-
-  echo "Reading export from $lastExportFile."
-  lastExport=$(jq -r .exportedAt "$lastExportFile")
-
-  echo "Exporting messages since $lastExport"
-  /app/exporter/DiscordChatExporter.Cli exportguild \
+  /opt/app/docker-entrypoint.sh exportguild \
     --parallel 5 \
     -g "$2" \
     --format Json \
     -o "$1" \
     --include-threads all \
     --include-vc true \
-    --after "$lastExport"
-}
-
-function exportFull {
-  echo "Performing full export"
-  /app/exporter/DiscordChatExporter.Cli exportguild \
-    --parallel 5 \
-    -g "$2" \
-    --format Json \
-    -o "$1" \
-    --include-threads all \
-    --include-vc true
+    --after "3"
 }
 
 function export {
@@ -39,9 +22,16 @@ function export {
 
   # If there are no json files in the export dir, there hasn't been a prior export, so a full one needs to be performed
   if [ "$numFiles" -eq 0 ]; then
-    exportFull "$exportsDir" "$GUILD_ID"
+    echo "Performing full export"
+    exportPartial "$exportsDir" "$GUILD_ID" "1970-01-01"
   else
-    exportPartial "$exportsDir" "$GUILD_ID"
+    lastExportFile=$(ls -1t "$exportsDir"/*.json | head -n 1)
+
+    echo "Reading export from $lastExportFile."
+    lastExport=$(jq -r .exportedAt "$lastExportFile")
+
+    echo "Exporting messages since $lastExport"
+    exportPartial "$exportsDir" "$GUILD_ID" "$lastExport"
   fi
 }
 
