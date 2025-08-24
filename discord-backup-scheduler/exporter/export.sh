@@ -1,11 +1,12 @@
-#!/bin/bash
+#!/bin/sh
 
 exportsDir="/exports"
 
 workDir="/app"
 mkdir -p "$workDir"
 
-function exportPartial {
+exportPartial() {
+  # GuildID wird per env var gesetzt
   /opt/app/docker-entrypoint.sh exportguild \
     --parallel 5 \
     -g "$2" \
@@ -16,7 +17,7 @@ function exportPartial {
     --after "3"
 }
 
-function export {
+export() {
   # Count json files in /out
   numFiles=$(ls -1 "$exportsDir"/*.json | wc -l)
 
@@ -35,7 +36,7 @@ function export {
   fi
 }
 
-function cleanup {
+cleanup() {
   echo "Performing cleanup"
   for file in "$exportsDir"/*.json; do
     messageCount=$(jq -r '.messages | length' "$file")
