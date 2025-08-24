@@ -1,5 +1,7 @@
 FROM tyrrrz/discordchatexporter:stable
 
+RUN apk add --no-cache jq
+
 RUN mkdir /app
 WORKDIR /app
 
