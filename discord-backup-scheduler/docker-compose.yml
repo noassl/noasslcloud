@@ -7,6 +7,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /var/log/discord-analytics.log:/var/log/cron.log
+      - .:/app
 
   exporter:
     container_name: "discord-analytics_exporter"
