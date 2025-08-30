@@ -1,11 +1,12 @@
 services:
   scheduler:
     container_name: "discord-analytics_scheduler"
-    image: alpine:latest
+    build:
+      context: ./scheduler
+      dockerfile: Dockerfile
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./scheduler/cronjobs:/etc/cron.d
-    entrypoint: crond -f
+      - /var/log/discord-analytics.log:/var/log/cron.log
 
   exporter:
     container_name: "discord-analytics_exporter"
