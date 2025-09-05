@@ -1,13 +1,14 @@
 services:
   scheduler:
-    container_name: "discord-analytics_scheduler"
-    build:
-      context: ./scheduler
-      dockerfile: Dockerfile
+    image: mcuadros/ofelia:latest
+    depends_on:
+      - exporter
+      - analyzer
+    command: daemon --docker
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /var/log/discord-analytics.log:/var/log/cron.log
-      - .:/app
+    labels:
+      ofelia.save-folder: "/var/log/ofelia"
 
   exporter:
     container_name: "discord-analytics_exporter"
@@ -18,6 +19,10 @@ services:
       - exports:/exports
     env_file:
       - .env
+    labels:
+      ofelia.enabled: true
+      ofelia.job-run.discord-analytics-exporter.container: "discord-analytics-exporter"
+      ofelia.job-run.discord-analytics-exporter.schedule: "0 0 * * 1" # Jeden Montag um 0000
 
   analyzer:
     container_name: "discord-analytics_analyzer"
@@ -27,6 +32,10 @@ services:
     volumes:
       - exports:/exports
       - reports:/reports
+    labels:
+      ofelia.enabled: true
+      ofelia.job-run.discord-analytics-analyzer.container: "discord-analytics-exporter"
+      ofelia.job-run.discord-analytics-analyzer.schedule: "0 1 * * 1" # Jeden Montag um 0100
 
   webhost:
     container_name: "discord-analytics_webhost"

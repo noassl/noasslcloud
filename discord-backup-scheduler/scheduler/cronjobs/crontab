@@ -1,2 +1,0 @@
-# Run at 0300 every monday
-0 3 * * 1 /bin/export.sh >> /var/log/cron.log 2>&1
