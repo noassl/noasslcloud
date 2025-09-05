@@ -17,6 +17,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - exports:/exports
+      - /var/log/discord-analytics/exporter.log:/var/log/discord-analytics/exporter.log
     env_file:
       - .env
     labels:
@@ -32,6 +33,7 @@ services:
     volumes:
       - exports:/exports
       - reports:/reports
+      - /var/log/discord-analytics/analyzer.log:/var/log/discord-analytics/analyzer.log
     labels:
       ofelia.enabled: true
       ofelia.job-run.discord-analytics-analyzer.container: "discord-analytics-exporter"

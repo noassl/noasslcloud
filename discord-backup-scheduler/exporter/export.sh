@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# Redirect logs to file
+exec >> /var/log/discord-analytics/exporter.log
+exec 2>&1
+
 exportsDir="/exports"
 
 workDir="/app"
