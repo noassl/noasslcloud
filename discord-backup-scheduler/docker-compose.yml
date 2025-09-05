@@ -1,6 +1,7 @@
 services:
   scheduler:
     image: mcuadros/ofelia:latest
+    container_name: "discord-analytics_scheduler"
     depends_on:
       - exporter
       - analyzer
@@ -22,7 +23,7 @@ services:
       - .env
     labels:
       ofelia.enabled: true
-      ofelia.job-run.discord-analytics-exporter.container: "discord-analytics-exporter"
+      ofelia.job-run.discord-analytics-exporter.container: "discord-analytics_exporter"
       ofelia.job-run.discord-analytics-exporter.schedule: "0 0 * * 1" # Jeden Montag um 0000
 
   analyzer:
@@ -36,7 +37,7 @@ services:
       - /var/log/discord-analytics/analyzer.log:/var/log/discord-analytics/analyzer.log
     labels:
       ofelia.enabled: true
-      ofelia.job-run.discord-analytics-analyzer.container: "discord-analytics-exporter"
+      ofelia.job-run.discord-analytics-analyzer.container: "discord-analytics_exporter"
       ofelia.job-run.discord-analytics-analyzer.schedule: "0 1 * * 1" # Jeden Montag um 0100
 
   webhost:
