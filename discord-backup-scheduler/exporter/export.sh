@@ -9,13 +9,15 @@ exportsDir="/exports"
 workDir="/app"
 mkdir -p "$workDir"
 
+filenameTemplate="%T - %C - after %a.json"
+
 exportPartial() {
   # Discord Token wird per env var gesetzt
   /opt/app/docker-entrypoint.sh exportguild \
     --parallel 5 \
     -g "$2" \
     --format Json \
-    -o "$1" \
+    -o "${1}/${filenameTemplate}" \
     --include-threads all \
     --include-vc true \
     --after "3"
