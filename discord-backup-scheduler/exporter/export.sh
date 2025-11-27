@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Redirect logs to file
-exec >> /var/log/discord-analytics/exporter.log
+exec > >(tee -a /var/log/discord-analytics/exporter.log)
 exec 2>&1
 
 exportsDir="/exports"
@@ -29,29 +29,37 @@ export() {
 
   # If there are no json files in the export dir, there hasn't been a prior export, so a full one needs to be performed
   if [ "$numFiles" -eq 0 ]; then
-    echo "Performing full export"
+    log "Performing full export"
     exportPartial "$exportsDir" "$GUILD_ID" "1970-01-01"
   else
     lastExportFile=$(ls -1t "$exportsDir"/*.json | head -n 1)
 
-    echo "Reading export from $lastExportFile."
+    log "Reading export from $lastExportFile."
     lastExport=$(jq -r .exportedAt "$lastExportFile")
 
-    echo "Exporting messages since $lastExport"
+    log "Exporting messages since $lastExport"
     exportPartial "$exportsDir" "$GUILD_ID" "$lastExport"
   fi
 }
 
 cleanup() {
-  echo "Performing cleanup"
+  log "Performing cleanup"
   for file in "$exportsDir"/*.json; do
     messageCount=$(jq -r '.messages | length' "$file")
     if [ "$messageCount" -eq 0 ]; then
-      echo "$file has no messages - deleting."
+      log "$file has no messages - deleting."
       rm "$file"
     fi
   done
 }
+
+log() {
+  echo "[$(date +%d.%m.%Y\ %H:%M:%S)] ${1}"
+}
+
+echo "--------------------------------------------------------------------------"
+log  "Starting export..."
+echo "--------------------------------------------------------------------------"
 
 # Nachrichten exportieren
 export
