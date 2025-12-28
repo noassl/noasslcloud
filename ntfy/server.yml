@@ -185,7 +185,7 @@ attachment-expiry-duration: "7d"
 #   $topic@ntfy.sh will be accepted (which may be a spam problem).
 #
 smtp-server-listen: ":25"
-smtp-server-domain: "noassl.at"
+smtp-server-domain: "notify.noassl.at"
 smtp-server-addr-prefix: "ntfy-"
 
 # Web Push support (background notifications for browsers)
