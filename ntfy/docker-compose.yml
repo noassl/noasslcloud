@@ -11,7 +11,7 @@ services:
     volumes:
       - /var/cache/ntfy:/var/cache/ntfy
       - /var/lib/ntfy:/var/lib/ntfy
-      - server.yml:/etc/ntfy/server.yml
+      - ./server.yml:/etc/ntfy/server.yml
     ports:
      - "25:25" # SMTP Server
 #    healthcheck: # optional: remember to adapt the host:port to your environment
