@@ -1,0 +1,23 @@
+services:
+  grafana:
+    image: grafana/grafana-enterprise
+    container_name: grafana
+    labels:
+      traefik.enable: true
+      traefik.http.routers.grafana.rule: "Host(`grafana.noassl.at`)"
+      traefik.http.routers.grafana.entryPoints: "websecure"
+      traefik.http.routers.grafana.tls: true
+      traefik.http.routers.grafana.tls.certresolver: "letsencrypt"
+      traefik.http.services.grafana.loadbalancer.server.port: 3000
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    networks:
+      - traefik
+    restart: unless-stopped
+
+volumes:
+  grafana-storage:
+
+networks:
+  traefik:
+    external: true
