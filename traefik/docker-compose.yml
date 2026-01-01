@@ -27,6 +27,8 @@ services:
       - --certificatesresolvers.letsencrypt.acme.email=jneissl27@gmail.com
       - --certificatesresolvers.letsencrypt.acme.storage=/etc/traefik/acme.json
       - --certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web
+      # Metrics
+      - --metrics.otlp=true # OpenTelemetry
       # Logs
       - --log.filePath=/logs/traefik.log
       - --log.level=ERROR
