@@ -11,6 +11,7 @@ services:
       traefik.http.services.grafana.loadbalancer.server.port: 3000
     volumes:
       - grafana-storage:/var/lib/grafana
+      - ./grafana.ini:/etc/grafana/grafana.ini
     networks:
       - traefik
     restart: unless-stopped
