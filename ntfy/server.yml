@@ -102,11 +102,15 @@ cache-duration: "7d"
 auth-file: "/var/lib/ntfy/user.db"
 auth-default-access: "deny-all"
 # auth-startup-queries:
-auth-users:
+auth-users: # Pwd hashen: htpasswd -bnBC 10 "" '<pwd>'
   - "noassl:$2y$10$y/p.BMo7ig5PeX7JbdbQJOsBb7ytrGzuqfzcVg2zflmmno1q5Gfu.:admin"
   - "naszwo:$2y$10$fP.Gk7yEfvsyIKrh07Bd2uVQU2iEQYEHbFYTcOEyJ11XmqIsIYnWm:user"
+  - "friedi-surface:$2y$10$8.TPKmXUnvfvgCQVmvErouvcrAdyvhpTZcwWf4aeQrbzEIt2g8qL.:user"
+  - "friedi-laptop:$2y$10$TQqC2DmsCKdGrPm/qJN8VOHgkbqFmTGKcwbkVLQb3mY331V6yMqIe:user"
 auth-access:
   - "naszwo:naszwo:wo"
+  - "friedi-surface:friedi-surface:wo"
+  - "friedi-laptop:friedi-laptop:wo"
 # auth-tokens: # Defined via .env
 
 # If set, the X-Forwarded-For header (or whatever is configured in proxy-forwarded-header) is used to determine
