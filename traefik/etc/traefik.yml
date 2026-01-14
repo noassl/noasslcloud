@@ -30,4 +30,3 @@ accessLog:
   filePath: /logs/access.log
 api:
   dashboard: true
-  insecure: true
