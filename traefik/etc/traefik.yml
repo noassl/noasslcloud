@@ -1,0 +1,33 @@
+global:
+  sendAnonymousUsage: true
+entrypoints:
+  web:
+    address: ":80"
+  websecure:
+    address: ":443"
+    http:
+      tls:
+        certResolver: cloudflare
+        domains:
+          - main: noassl.at
+            sans:
+              - "*.noassl.at"
+providers:
+  docker:
+    exposedByDefault: false
+    network: traefik
+certificatesResolvers:
+  cloudflare:
+    acme:
+      email: jneissl27@gmail.com
+      storage: /etc/traefik/cloudflare.acme.json
+      dnsChallenge:
+        provider: cloudflare
+log:
+  filePath: /logs/traefik.log
+  level: ERROR
+accessLog:
+  filePath: /logs/access.log
+api:
+  dashboard: true
+  insecure: true
