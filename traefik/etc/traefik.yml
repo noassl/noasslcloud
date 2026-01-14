@@ -7,7 +7,7 @@ entrypoints:
     address: ":443"
     http:
       tls:
-        certResolver: letsencrypt
+        certResolver: cloudflare
         domains:
           - main: noassl.at
             sans:
@@ -17,18 +17,12 @@ providers:
     exposedByDefault: false
     network: traefik
 certificatesResolvers:
-  letsencrypt:
+  cloudflare:
     acme:
       email: jneissl27@gmail.com
       storage: /etc/traefik/cloudflare.acme.json
       dnsChallenge:
         provider: cloudflare
-  hetzner:
-    acme:
-      email: jneissl27@gmail.com
-      storage: /etc/traefik/hetzner.acme.json
-      dnsChallenge:
-        provider: hetzner
 log:
   filePath: /logs/traefik.log
   level: ERROR
