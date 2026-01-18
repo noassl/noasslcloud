@@ -12,6 +12,9 @@ mkdir -p "$workDir"
 filenameTemplate="%T - %C - after %a.json"
 
 exportPartial() {
+  # docker-entrypoint always runs with dce user
+  chown dce:dce $exportsDir
+
   # Discord Token wird per env var gesetzt
   /opt/app/docker-entrypoint.sh exportguild \
     --parallel 5 \
