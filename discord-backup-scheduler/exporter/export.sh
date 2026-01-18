@@ -47,6 +47,13 @@ export() {
 
 cleanup() {
   log "Performing cleanup"
+
+  set -- "$exportsDir"/*.json
+  if [ ! -e "$1" ]; then
+    log "{$exportsDir} empty, exiting"
+    return 0
+  fi
+
   for file in "$exportsDir"/*.json; do
     messageCount=$(jq -r '.messages | length' "$file")
     if [ "$messageCount" -eq 0 ]; then
