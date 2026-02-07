@@ -1,0 +1,11 @@
+http:
+  routers:
+    truenas:
+      rule: "Host(`home-assistant.noassl.at`)"
+      entryPoints: "websecure"
+      service: home-assistant
+  services:
+    home-assistant:
+      loadBalancer:
+        servers:
+          - url: {{ env "HOMEASSISTANT_IP" }}
