@@ -1,6 +1,6 @@
 http:
   routers:
-    truenas:
+    home-assistant:
       rule: "Host(`home-assistant.noassl.at`)"
       entryPoints: "websecure"
       service: home-assistant
