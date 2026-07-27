@@ -7,6 +7,7 @@ esphome:
 
 packages:
   - controls: github://noassl/noasslcloud/home-assistant/esphome/ir-proxy/controls/fernbedienung-janik.controls.yaml@main
+  - !include ../common/wifi.yaml
 
 esp32:
   board: esp32dev
@@ -29,14 +30,6 @@ ota:
     # Password for OTA Updates
     # Should be unique per device as per https://esphome.io/guides/security_best_practices/#1--api-encryption
     password: !secret ota_password_fernbedienung_janik
-
-# Set up wifi client
-wifi:
-  networks:
-    - ssid: !secret wifi_ssid
-      password: !secret wifi_password
-    - ssid: !secret wifi_ssid_2
-      password: !secret wifi_password_2
 
 # Set up IR receiver
 remote_receiver:
