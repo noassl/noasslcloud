@@ -2,9 +2,11 @@
 # It consumes the versioned config directly from GitHub.
 
 esphome:
+  name: fernbedienung-janik
+  friendly_name: fernbedienung-janik
 
 packages:
-  base: github://noassl/noasslcloud/home-assistant/esphome/ir-proxy/fernbedienung-janik.base.yaml@main
+  - controls: github://noassl/noasslcloud/home-assistant/esphome/ir-proxy/controls/fernbedienung-janik.controls.yaml@main
 
 esp32:
   board: esp32dev

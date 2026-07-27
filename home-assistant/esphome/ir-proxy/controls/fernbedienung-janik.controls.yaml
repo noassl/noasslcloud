@@ -1,9 +1,5 @@
 # This file defines the actions for the specific device. It is included directly from GitHub and can therefore not use !secret lookups.
 
-esphome:
-  name: fernbedienung-janik
-  friendly_name: fernbedienung-janik
-
 switch:
   - platform: template
     id: "lampe_toggle"
@@ -38,28 +34,28 @@ switch:
 packages:
 #region Lampe
   - !include
-    file: pronto-button.yaml
+    file: ../common/pronto-button.yaml
     vars:
       name: "Lampe Toggle White"
       icon: "mdi:lightbulb-on"
       data: "0000 006D 0022 0000 015E 00AC 0016 0015 0017 0015 0016 0016 0016 0015 0017 0015 0016 0016 0016 0015 0017 0015 0016 0040 0017 0040 0016 0040 0016 0040 0017 0040 0016 0040 0016 0040 0017 0040 0016 0040 0016 0040 0017 0015 0016 0040 0017 0015 0016 0016 0015 0015 0017 0015 0016 0016 0016 0015 0017 0040 0016 0015 0017 0040 0016 0040 0016 0040 0017 0040 0016 0180"
 
   - !include
-    file: pronto-button.yaml
+    file: ../common/pronto-button.yaml
     vars:
       name: "Lampe Brightness UP"
       icon: "mdi:brightness-7"
       data: "0000 006D 0022 0000 0160 00AC 0016 0015 0017 0015 0016 0016 0016 0015 0017 0015 0016 0016 0016 0015 0017 0015 0016 0040 0017 0040 0016 0040 0016 0040 0017 0040 0016 0040 0016 0040 0017 0040 0016 0040 0016 0016 0015 0040 0016 0016 0016 0015 0017 0015 0015 0016 0015 0015 0017 0015 0015 0040 0016 0015 0015 0040 0017 0040 0016 0040 0016 0040 0017 0040 0016 0180"
 
   - !include
-    file: pronto-button.yaml
+    file: ../common/pronto-button.yaml
     vars:
       name: "Lampe Brightness DOWN"
       icon: "mdi:brightness-6"
       data: "0000 006D 0022 0000 015F 00AC 0016 0015 0017 0015 0016 0016 0016 0015 0017 0015 0016 0016 0016 0015 0017 0015 0016 0040 0017 0040 0016 0040 0016 0040 0017 0040 0016 0040 0016 0040 0017 0040 0016 0015 0017 0015 0016 0040 0017 0015 0016 0016 0015 0015 0017 0015 0016 0016 0015 0040 0016 0040 0017 0015 0016 0040 0017 0040 0016 0040 0016 0040 0017 0040 0016 0180"
 
   - !include
-    file: pronto-button.yaml
+    file: ../common/pronto-button.yaml
     vars:
       name: "Lampe Türkis" # 4. Zeile, 2. Spalte
       data: "0000 006D 0022 0000 0160 00AC 0016 0015 0017 0015 0016 0016 0016 0015 0017 0015 0016 0016 0016 0015 0017 0015 0016 0040 0017 0040 0016 0040 0016 0040 0017 0040 0016 0040 0016 0040 0017 0040 0016 0015 0017 0015 0016 0040 0017 0015 0016 0040 0017 0015 0016 0016 0015 0015 0017 0040 0016 0040 0016 0016 0015 0040 0016 0016 0015 0040 0016 0040 0017 0040 0016 0180"
@@ -67,25 +63,25 @@ packages:
 
 #region Kopfteil Licht
   - !include
-    file: pronto-button.yaml
+    file: ../common/pronto-button.yaml
     vars:
       name: "Kopfteil Licht Rot"
       data: "0000 006D 0022 0000 0160 00A7 0017 0014 0017 0014 0016 0015 0017 0015 0015 0015 0017 0014 0018 0015 0015 0016 0017 0040 0016 0040 0017 003F 0017 0040 0016 0015 0017 0040 0016 0040 0017 003F 0016 0014 0017 0014 0016 0040 0017 0014 0016 0015 0016 0014 0017 0015 0016 0015 0017 003F 0017 003F 0017 0014 0017 0040 0017 003F 0016 003F 0016 0040 0017 003F 0016 0180"
 
   - !include
-    file: pronto-button.yaml
+    file: ../common/pronto-button.yaml
     vars:
       name: "Kopfteil Licht Grün"
       data: "0000 006D 0022 0000 0160 00AA 0018 0014 0016 0015 0017 0015 0017 0014 0016 0015 0016 0015 0017 0015 0016 0015 0016 0040 0015 0040 0017 003F 0016 0040 0016 0015 0016 003F 0016 0040 0017 003F 0016 0040 0016 0015 0016 0040 0016 0015 0017 0014 0017 0014 0016 0015 0017 0014 0018 0015 0015 0040 0017 0014 0016 0040 0017 003F 0017 0040 0016 003F 0018 003F 0017 0180"
 
   - !include
-    file: pronto-button.yaml
+    file: ../common/pronto-button.yaml
     vars:
       name: "Kopfteil Licht Blau"
       data: "0000 006D 0022 0000 015E 00A9 0016 0015 0015 0015 0016 0015 0016 0015 0015 0015 0016 0015 0017 0015 0016 0015 0017 0040 0016 0040 0017 003F 0017 0040 0016 0015 0017 0040 0016 0040 0017 003F 0016 0015 0017 003F 0016 0040 0016 0015 0017 0015 0017 0015 0015 0015 0016 0015 0017 003F 0016 0015 0017 0015 0015 0040 0016 003F 0016 0040 0015 0040 0016 003F 0016 0180"
 
   - !include
-    file: pronto-button.yaml
+    file: ../common/pronto-button.yaml
     vars:
       name: "Kopfteil Licht Weiß"
       data: "0000 006D 0022 0000 0160 00A9 0018 0014 0016 0015 0017 0014 0017 0014 0016 0015 0016 0014 0017 0014 0016 0015 0016 0040 0016 003F 0017 003F 0016 0040 0016 0015 0017 0040 0016 0040 0017 0040 0016 0040 0016 0040 0017 0040 0016 0014 0017 0014 0016 0015 0016 0015 0017 0014 0016 0015 0016 0014 0017 0015 0016 0040 0017 0040 0017 0041 0016 0041 0017 0040 0017 0180"
@@ -93,7 +89,7 @@ packages:
 
 #region Stereo
   - !include
-    file: rc5-button.yaml
+    file: ../common/rc5-button.yaml
     vars:
       name: "Stereo ON⁄OFF"
       icon: "mdi:power"
@@ -101,14 +97,14 @@ packages:
       command: 0x0C
 
   - !include
-    file: pronto-button.yaml
+    file: ../common/pronto-button.yaml
     vars:
       name: "Stereo Bluetooth"
       icon: "mdi:power"
       data: "0000 006D 0013 0000 0067 0022 0012 0021 0012 0011 0012 0011 0012 0021 0022 0011 0011 0012 0023 0011 0011 0012 0011 0023 0011 0012 0023 0022 0011 0012 0023 0011 0011 0012 0011 0012 0011 0012 0011 0012 0011 0180"
 
   - !include
-    file: rc5-button.yaml
+    file: ../common/rc5-button.yaml
     vars:
       name: "Stereo Volume UP"
       icon: "mdi:volume-plus"
@@ -116,7 +112,7 @@ packages:
       command: 0x10
 
   - !include
-    file: rc5-button.yaml
+    file: ../common/rc5-button.yaml
     vars:
       name: "Stereo Volume DOWN"
       icon: "mdi:volume-minus"
@@ -124,7 +120,7 @@ packages:
       command: 0x11
 
   - !include
-    file: pronto-button.yaml
+    file: ../common/pronto-button.yaml
     vars:
       name: "Stereo Play⁄Pause"
       icon: "mdi:play-pause"
