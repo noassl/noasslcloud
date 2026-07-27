@@ -4,7 +4,7 @@
 esphome:
 
 packages:
-  remote_package_shorthand: github://noassl/noasslcloud/home-assistant/esphome/ir-proxy/fernbedienung-janik.base.yaml@main
+  base: github://noassl/noasslcloud/home-assistant/esphome/ir-proxy/fernbedienung-janik.base.yaml@main
 
 esp32:
   board: esp32dev
@@ -45,4 +45,3 @@ remote_receiver:
 remote_transmitter:
   pin: GPIO17
   carrier_duty_percent: 50%
-
