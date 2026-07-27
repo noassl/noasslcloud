@@ -6,8 +6,8 @@ esphome:
   friendly_name: fernbedienung-janik
 
 packages:
-  - controls: github://noassl/noasslcloud/home-assistant/esphome/ir-proxy/controls/fernbedienung-janik.controls.yaml@main
-  - !include ../common/wifi.yaml
+  controls: github://noassl/noasslcloud/home-assistant/esphome/ir-proxy/controls/fernbedienung-janik.controls.yaml@main
+  wifi: github://noassl/noasslcloud/home-assistant/esphome/ir-proxy/common/wifi.yaml@main
 
 esp32:
   board: esp32dev
