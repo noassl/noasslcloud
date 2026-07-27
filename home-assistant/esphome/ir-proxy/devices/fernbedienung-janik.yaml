@@ -1,0 +1,41 @@
+# This file has to be copied to the ESPHome Device Builder, so it can use !secret lookups.
+# It consumes the versioned config directly from GitHub.
+
+esphome:
+  name: fernbedienung-janik
+  friendly_name: fernbedienung-janik
+
+packages:
+  controls: github://noassl/noasslcloud/home-assistant/esphome/ir-proxy/controls/fernbedienung-janik.controls.yaml@main
+  wifi: github://noassl/noasslcloud/home-assistant/esphome/ir-proxy/common/wifi.yaml@main
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API on Microcontroller
+api:
+  encryption:
+    # Encryption key for API communication
+    # Should be unique per device as per https://esphome.io/guides/security_best_practices/#1--api-encryption
+    key: !secret api_key_fernbedienung_janik
+
+# Enable ESPHome OTA Updates
+ota:
+  - platform: esphome
+    # Password for OTA Updates
+    # Should be unique per device as per https://esphome.io/guides/security_best_practices/#1--api-encryption
+    password: !secret ota_password_fernbedienung_janik
+
+# Set up IR receiver
+remote_receiver:
+  pin: GPIO16
+
+# Set up IR transmitter
+remote_transmitter:
+  pin: GPIO17
+  carrier_duty_percent: 50%

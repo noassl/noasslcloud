@@ -1,0 +1,15 @@
+esphome:
+  name: "ir-button-rc5"
+  friendly_name: "Button for sending Infrared data in RC5 format"
+
+substitutions:
+  icon: "mdi:none"
+
+button:
+  - platform: template
+    name: ${name}
+    icon: ${icon}
+    on_press:
+      - remote_transmitter.transmit_rc5:
+          address: ${address}
+          command: ${command}

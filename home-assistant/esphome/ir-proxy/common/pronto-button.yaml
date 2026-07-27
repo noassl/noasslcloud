@@ -1,0 +1,14 @@
+esphome:
+  name: "ir-button-pronto"
+  friendly_name: "Button for sending Infrared data in Pronto Format"
+
+substitutions:
+  icon: "mdi:none"
+
+button:
+  - platform: template
+    name: ${name}
+    icon: ${icon}
+    on_press:
+      - remote_transmitter.transmit_pronto:
+          data: ${data}
