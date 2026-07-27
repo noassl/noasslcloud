@@ -34,7 +34,6 @@ ota:
 # Set up IR receiver
 remote_receiver:
   pin: GPIO16
-  dump: all
 
 # Set up IR transmitter
 remote_transmitter:
