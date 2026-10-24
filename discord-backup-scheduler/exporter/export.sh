@@ -1,8 +1,6 @@
 #!/bin/sh
 
-# Redirect logs to file
-exec > >(tee -a /var/log/discord-analytics/exporter.log)
-exec 2>&1
+set -e
 
 exportsDir="/exports"
 
@@ -13,7 +11,7 @@ filenameTemplate="%T - %C - after %a.json"
 
 exportPartial() {
   # docker-entrypoint always runs with dce user
-  chown dce:dce $exportsDir
+  chown dce:dce "$exportsDir"
 
   # Discord Token wird per env var gesetzt
   /opt/app/docker-entrypoint.sh exportguild \
@@ -23,10 +21,10 @@ exportPartial() {
     -o "${1}/${filenameTemplate}" \
     --include-threads all \
     --include-vc true \
-    --after "3"
+    --after "$3"
 }
 
-export() {
+run_export() {
   # Count json files in /out
   numFiles=$(ls -1 "$exportsDir"/*.json | wc -l)
 
@@ -72,7 +70,7 @@ log  "Starting export..."
 echo "--------------------------------------------------------------------------"
 
 # Nachrichten exportieren
-export
+run_export
 
 # Channel-Exports ohne Nachrichten löschen
 cleanup
