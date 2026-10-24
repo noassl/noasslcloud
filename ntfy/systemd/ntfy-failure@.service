@@ -1,0 +1,9 @@
+[Unit]
+Description=Send a failed systemd unit notification to ntfy
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/ntfy-notify.env
+ExecStart=/usr/bin/curl -fsS -H "Authorization: Bearer ${NTFY_TOKEN}" -H "Title: %i failed" -H "Priority: high" --data "Unit %i failed on %H. Check journal: journalctl -u %i" "${NTFY_URL}/${NTFY_TOPIC}"
