@@ -1,41 +1,24 @@
-services:
-  scheduler:
-    image: mcuadros/ofelia:latest
-    container_name: "discord-analytics_scheduler"
-    depends_on:
-      - exporter
-      - analyzer
-    command: daemon --docker
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    labels:
-      ofelia.enabled: true
-      ofelia.save-folder: "/var/log/ofelia"
-      ofelia.job-run.discord-analytics-exporter.container: "discord-analytics_exporter"
-      ofelia.job-run.discord-analytics-exporter.schedule: "0 0 * * 1" # Jeden Montag um 0000
-      ofelia.job-run.discord-analytics-analyzer.container: "discord-analytics_exporter"
-      ofelia.job-run.discord-analytics-analyzer.schedule: "0 1 * * 1" # Jeden Montag um 0100
+name: discord-backup-scheduler
 
+services:
   exporter:
-    container_name: "discord-analytics_exporter"
+    profiles: [jobs]
     build:
       context: ./exporter
       dockerfile: Dockerfile
     volumes:
       - exports:/exports
-      - /var/log/discord-analytics/exporter.log:/var/log/discord-analytics/exporter.log
     env_file:
       - .env
 
   analyzer:
-    container_name: "discord-analytics_analyzer"
+    profiles: [jobs]
     build:
       context: ./analyzer
       dockerfile: Dockerfile
     volumes:
-      - exports:/exports
+      - exports:/exports:ro
       - reports:/reports
-      - /var/log/discord-analytics/analyzer.log:/var/log/discord-analytics/analyzer.log
 
   webhost:
     container_name: "discord-analytics_webhost"

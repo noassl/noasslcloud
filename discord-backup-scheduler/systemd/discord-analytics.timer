@@ -1,0 +1,10 @@
+[Unit]
+Description=Weekly Discord export and analytics
+
+[Timer]
+OnCalendar=Mon *-*-* 00:00:00 Europe/Vienna
+Persistent=true
+RandomizedDelaySec=10m
+
+[Install]
+WantedBy=timers.target

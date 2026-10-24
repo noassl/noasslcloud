@@ -1,0 +1,17 @@
+[Unit]
+Description=Discord export and analytics
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+OnFailure=ntfy-failure@%n.service
+OnSuccess=ntfy-success@%n.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/nuc/noasslcloud/discord-backup-scheduler
+Environment=COMPOSE_PROFILES=jobs
+ExecStartPre=/usr/bin/docker compose build --pull exporter analyzer
+ExecStart=/usr/bin/docker compose run --rm -T exporter
+ExecStart=/usr/bin/docker compose run --rm -T analyzer
+ExecStopPost=/usr/bin/docker compose rm -sf exporter analyzer
+TimeoutStartSec=6h
