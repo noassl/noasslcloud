@@ -31,7 +31,7 @@ run_export() {
   # If there are no json files in the export dir, there hasn't been a prior export, so a full one needs to be performed
   if [ "$numFiles" -eq 0 ]; then
     log "Performing full export"
-    exportPartial "$exportsDir" "$GUILD_ID" "1970-01-01"
+    exportPartial "$exportsDir" "$GUILD_ID" "2015-01-01 +0" # 01 Jan 2015, 00:00:00 UTC is the minimum value a discord snowflake can represent
   else
     lastExportFile=$(ls -1t "$exportsDir"/*.json | head -n 1)
 
