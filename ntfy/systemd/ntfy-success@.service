@@ -1,0 +1,9 @@
+[Unit]
+Description=Send a successful systemd unit notification to ntfy
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/ntfy-notify.env
+ExecStart=/usr/bin/curl -fsS -H "Authorization: Bearer ${NTFY_TOKEN}" -H "Title: %i succeeded" --data "Unit %i succeeded on %H." "${NTFY_URL}/${NTFY_TOPIC}"

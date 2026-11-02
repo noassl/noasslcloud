@@ -1,4 +1,4 @@
-FROM tyrrrz/discordchatexporter:stable
+FROM tyrrrz/discordchatexporter:2.48
 
 RUN apk add --no-cache jq
 

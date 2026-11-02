@@ -1,7 +1,5 @@
-FROM node:lts-alpine
+FROM node:lts-alpine3.24
 
-CMD npx -y chat-analytics \
-        -p discord \
-        -i /exports/*.json \
-        -o /reports/index.html \
-        >> /var/log/discord-analytics/analyzer.log
+RUN npm install --global chat-analytics@1.1.2
+
+CMD ["sh", "-c", "exec chat-analytics -p discord -i /exports/*.json -o /reports/index.html"]

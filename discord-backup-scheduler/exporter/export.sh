@@ -1,8 +1,6 @@
 #!/bin/sh
 
-# Redirect logs to file
-exec > >(tee -a /var/log/discord-analytics/exporter.log)
-exec 2>&1
+set -e
 
 exportsDir="/exports"
 
@@ -13,27 +11,27 @@ filenameTemplate="%T - %C - after %a.json"
 
 exportPartial() {
   # docker-entrypoint always runs with dce user
-  chown dce:dce $exportsDir
+  chown dce:dce "$exportsDir"
 
   # Discord Token wird per env var gesetzt
   /opt/app/docker-entrypoint.sh exportguild \
-    --parallel 5 \
+    --parallel 1 \
     -g "$2" \
     --format Json \
     -o "${1}/${filenameTemplate}" \
     --include-threads all \
     --include-vc true \
-    --after "3"
+    --after "$3"
 }
 
-export() {
+run_export() {
   # Count json files in /out
   numFiles=$(ls -1 "$exportsDir"/*.json | wc -l)
 
   # If there are no json files in the export dir, there hasn't been a prior export, so a full one needs to be performed
   if [ "$numFiles" -eq 0 ]; then
     log "Performing full export"
-    exportPartial "$exportsDir" "$GUILD_ID" "1970-01-01"
+    exportPartial "$exportsDir" "$GUILD_ID" "2015-01-01 +0" # 01 Jan 2015, 00:00:00 UTC is the minimum value a discord snowflake can represent
   else
     lastExportFile=$(ls -1t "$exportsDir"/*.json | head -n 1)
 
@@ -72,7 +70,7 @@ log  "Starting export..."
 echo "--------------------------------------------------------------------------"
 
 # Nachrichten exportieren
-export
+run_export
 
 # Channel-Exports ohne Nachrichten löschen
 cleanup
