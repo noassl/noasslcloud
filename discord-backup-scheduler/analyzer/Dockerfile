@@ -1,4 +1,4 @@
-FROM node:lts-alpine
+FROM node:lts-alpine3.24
 
 RUN npm install --global chat-analytics@1.1.2
 
